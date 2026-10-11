@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QWIZERO | Symbol Generator</title>
+<style>
+:root{--bg:#01040b;--line:#ffffff2e;--tx:#eaf4ff;--mut:#8fa6c2;--g1:#034e9f;--g2:#08a1ed;--g3:#0861b5;--ac:#bfe3ff}
+[data-t=ember]{--g1:#ff7a3d;--g2:#e11d48;--g3:#f5b942;--ac:#ffd9c2}
+[data-t=frost]{--g1:#22d3b6;--g2:#38a8f8;--g3:#a3e635;--ac:#c9fff3}
+[data-t=mono]{--g1:#8a90a0;--g2:#4b5060;--g3:#d4d7df;--ac:#fff}
+*{box-sizing:border-box;scrollbar-width:none}
+*::-webkit-scrollbar{display:none}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--tx);font:15px/1.5 Bahnschrift,"Segoe UI",system-ui,sans-serif}
+.aur{position:fixed;inset:0;z-index:-1;background:radial-gradient(70% 60% at 0% 0%,var(--g1),transparent 70%),radial-gradient(75% 55% at 100% 105%,var(--g2),transparent 70%),radial-gradient(45% 35% at 70% 100%,var(--g3),transparent 75%),radial-gradient(300px 300px at var(--mx,50%) var(--my,30%),#9fd8ff14,transparent)}
+nav{display:flex;align-items:center;gap:14px;padding:14px 28px}
+.lg{width:32px;height:32px;border-radius:9px;box-shadow:0 0 18px #08a1ed77,inset 0 0 0 1px #fff4}
+nav b.n{font-size:17px;letter-spacing:.02em}
+.sp{flex:1}
+nav button,nav a{background:#ffffff0d;border:1px solid var(--line);color:var(--tx);border-radius:9px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer;text-decoration:none;transition:.15s}
+nav button:hover,nav a:hover{background:#ffffff22}
+nav button.on{background:#ffffff2e}
+.sw{width:20px;height:20px;border-radius:50%;padding:0!important;border:2px solid #fff3!important}
+.sw.on{border-color:#fff!important;transform:scale(1.15)}
+main{max-width:820px;margin:0 auto;padding:6px 20px 60px}
+h1{font-size:clamp(28px,5vw,46px);line-height:1.05;letter-spacing:-.025em;text-align:center;margin:4px 0 8px;text-shadow:0 0 30px #08a1ed66}
+.sub{text-align:center;color:#c3c7d4;margin:0 0 20px}
+.card{position:relative;background:linear-gradient(135deg,#ffffff22,#ffffff06 38%,#8fd0ff12);backdrop-filter:blur(26px) saturate(1.7);-webkit-backdrop-filter:blur(26px) saturate(1.7);border-radius:22px;padding:14px;box-shadow:inset 1px 1px 0 #ffffff55,inset -1px -1px 0 #7cc8ff33,0 24px 70px #0009}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;background:linear-gradient(135deg,#fffc,#7cc8ff22 34%,#ffb36b66 58%,#b58cff44 72%,#9be0ffcc);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.grid>.card+.card{margin-top:16px}
+#drop{display:flex;align-items:center;gap:14px;min-height:84px;border:1px dashed #ffffff30;border-radius:14px;padding:8px 12px;color:var(--mut);cursor:pointer;transition:.2s;overflow:hidden}
+#drop:hover,#drop.ov{border-color:var(--ac);background:#ffffff0a;color:var(--tx)}
+#dt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#th{display:none;height:62px;border-radius:9px}
+#drop.has #th{display:block}
+.chips{display:flex;gap:8px;margin:12px 2px 0}
+.chips button{flex:1;background:#ffffff10;border:1px solid var(--line);color:var(--tx);border-radius:10px;padding:5px;font:inherit;font-size:13px;cursor:pointer;transition:.15s}
+.chips button:hover{background:#ffffff26;transform:translateY(-1px)}
+.tune{display:grid;grid-template-columns:1fr 1fr;gap:8px 22px;margin:12px 4px 6px}
+.tune label{display:grid;grid-template-columns:1fr auto;font-size:13px;color:var(--mut)}
+.tune label input{grid-column:1/-1;width:100%;accent-color:var(--ac)}
+.tune output{color:var(--tx)}
+.ck{display:flex;gap:8px 16px;flex-wrap:wrap;align-items:center;margin:6px 4px 12px;font-size:13px;color:var(--mut)}
+.ck label{display:flex;gap:6px;align-items:center;cursor:pointer}
+.ck input{accent-color:var(--ac)}
+.bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+select,input[type=text],input[type=number]{background:#ffffff0f;border:1px solid var(--line);color:var(--tx);border-radius:10px;padding:7px 9px;font:inherit;font-size:13px}
+select option{background:#0a1220}
+#cu{width:130px;display:none}
+#lim{width:80px}
+.pl{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#ffffff0f;color:var(--tx);font-size:18px;cursor:pointer}
+#go{width:38px;height:38px;border-radius:50%;border:0;background:linear-gradient(135deg,#fff,#8fd0ff);color:#00152e;box-shadow:0 0 20px #08a1ed88;font-size:19px;font-weight:700;cursor:pointer;margin-left:auto;transition:transform .15s}
+#go:hover{transform:scale(1.1)}
+.hd{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+#cnt{font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pb{flex:1;min-width:60px;height:6px;border-radius:3px;background:#ffffff1a;overflow:hidden}
+#bar{height:100%;background:var(--ac);transition:width .25s}
+.over #bar{background:#ff5470}.over #cnt{color:#ff7a90}
+.hd button{background:#ffffff12;border:1px solid var(--line);color:var(--tx);border-radius:9px;padding:5px 11px;font:inherit;font-size:13px;cursor:pointer;transition:.15s}
+.hd button:hover{background:#ffffff28}
+.hd input[type=range]{width:80px;accent-color:var(--ac)}
+#pre{margin:0;overflow:auto;max-height:70vh;background:#020611cc;box-shadow:inset 0 0 0 1px #ffffff14;border-radius:14px;padding:14px;font:9px/1.05 "Cascadia Mono",Consolas,monospace;color:#fff;white-space:pre;text-align:center}
+#pre:empty{display:grid;place-items:center;min-height:240px;white-space:normal}
+#pre:empty::before{content:attr(data-ph);color:var(--mut);font:14px Bahnschrift,"Segoe UI",sans-serif}
+#pre i{font-style:normal}
+@media(min-width:1000px){main{max-width:1180px}.grid{display:grid;grid-template-columns:400px 1fr;gap:18px;align-items:start}.grid>.card+.card{margin-top:0}#res{position:sticky;top:14px}#pre{max-height:calc(100vh - 130px)}.tune{grid-template-columns:1fr}}
+@media(max-width:560px){.tune{grid-template-columns:1fr}nav{padding:12px 14px;flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+</style></head><body>
+<div class="aur"></div>
+<nav><img class="lg" alt="" src="data:image/jpeg;base64,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"><b class="n">QWIZERO</b><span class="sp"></span>
+<button class="sw" data-t="ice" style="background:linear-gradient(135deg,#034e9f,#08a1ed)" title="Glass"></button>
+<button class="sw" data-t="ember" style="background:linear-gradient(135deg,#ff7a3d,#e11d48)" title="Ember"></button>
+<button class="sw" data-t="frost" style="background:linear-gradient(135deg,#22d3b6,#a3e635)" title="Frost"></button>
+<button class="sw" data-t="mono" style="background:linear-gradient(135deg,#d4d7df,#4b5060)" title="Mono"></button>
+<button data-l="en">EN</button><button data-l="ru">RU</button><button data-l="ja">日本語</button>
+<a href="https://t.me/qwizero_production" target="_blank">Telegram</a></nav>
+<main>
+<h1 data-i="h"></h1><p class="sub" data-i="s"></p>
+<div class="grid">
+<section class="card" id="ctl">
+<div id="drop"><img id="th" alt=""><span id="dt" data-i="d"></span></div>
+<input type="file" id="f" accept="image/*" hidden>
+<div class="chips"><button data-p="photo" data-i="p1"></button><button data-p="portrait" data-i="p2"></button><button data-p="logo" data-i="p3"></button></div>
+<div class="tune">
+<label><span data-i="w"></span><output id="ow"></output><input class="t" type="range" id="w" min="20" max="220" value="60"></label>
+<label><span data-i="r"></span><output id="or"></output><input class="t" type="range" id="r" min=".2" max="1" step=".01" value=".5"></label>
+<label><span data-i="l"></span><output id="ol"></output><input class="t" type="range" id="l" min=".5" max="2" step=".01" value="1.1"></label>
+<label><span data-i="c"></span><output id="oc"></output><input class="t" type="range" id="c" min=".5" max="3" step=".01" value="1.5"></label>
+<label><span data-i="sh"></span><output id="osh"></output><input class="t" type="range" id="sh" min="0" max="2" step=".05" value=".5"></label>
+</div>
+<div class="ck">
+<label><input class="t" type="checkbox" id="inv"><span data-i="inv"></span></label>
+<label><input class="t" type="checkbox" id="al" checked><span data-i="al"></span></label>
+<label><input class="t" type="checkbox" id="colr"><span data-i="col"></span></label>
+<label><input class="t" type="checkbox" id="auto" checked><span data-i="fit"></span></label>
+<label><input class="t" type="checkbox" id="strict" checked><span data-i="st"></span></label>
+<label><span data-i="dt2"></span><select class="t" id="dth"><option value="atk">Atkinson</option><option value="fs">Floyd–Steinberg</option><option value="off">Off</option></select></label>
+</div>
+<div class="bar">
+<button class="pl" id="plus" title="+">+</button>
+<select class="t" id="sym" aria-label="Symbols">
+<option value="braille">⠿ Braille dots</option><option value="ascii">@# ASCII</option><option value="blocks">▓ Blocks</option>
+<option value="stars">✦ Stars</option><option value="hearts">♥ Hearts</option><option value="kata">ア Katakana</option>
+<option value="binary">01 Binary</option><option value="custom">✎ Custom</option></select>
+<input class="t" type="text" id="cu" value=" .oO0@" maxlength="24">
+<select class="t" id="pf" aria-label="Platform">
+<option value="1000|1">Steam comment</option><option value="2000|1">Steam profile summary</option><option value="8000|1">Steam review</option>
+<option value="2000|0">Discord</option><option value="4096|0">Telegram</option><option value="1000000|0">No limit</option></select>
+<input class="t" type="number" id="lim" value="1000" min="50" step="50" aria-label="Limit">
+<button id="go" title="Generate">↑</button>
+</div></section>
+<section class="card" id="res">
+<div class="hd"><span id="cnt"></span><div class="pb"><div id="bar"></div></div>
+<input type="range" id="z" min="3" max="24" step=".5" value="9" aria-label="Zoom"><button id="zf" title="Fit">⤢</button>
+<button id="cp"></button><button id="txt">TXT</button><button id="png">PNG</button></div>
+<pre id="pre"></pre></section>
+</div></main>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const T={en:{h:"Turn any picture into symbols",s:"Add an image, choose the symbols and where you will post it.",d:"Drop, paste or click to add an image",w:"Matrix width",r:"Vertical ratio",l:"Luminance",c:"Contrast depth",sh:"Sharpness",inv:"Invert",al:"Auto levels",col:"Colour preview",fit:"Auto-fit to limit",st:"Strict count (Unicode ×2)",dt2:"Dither",cp:"Copy",ok:"Copied",ph:"Your result will appear here",p1:"Photo",p2:"Portrait",p3:"Logo",er:"Could not read this image"},
+ru:{h:"Превращай любую картинку в символы",s:"Добавь изображение, выбери символы и площадку для публикации.",d:"Перетащи, вставь или нажми, чтобы добавить фото",w:"Ширина матрицы",r:"Вертикальный коэффициент",l:"Яркость",c:"Глубина контраста",sh:"Резкость",inv:"Инверсия",al:"Автоуровни",col:"Цветной предпросмотр",fit:"Автоподгон под лимит",st:"Строгий подсчёт (Unicode ×2)",dt2:"Дизеринг",cp:"Копировать",ok:"Скопировано",ph:"Здесь появится результат",p1:"Фото",p2:"Портрет",p3:"Лого",er:"Не удалось открыть изображение"},
+ja:{h:"どんな画像もシンボルアートに",s:"画像を追加し、記号と投稿先を選びます。",d:"ドロップ・貼り付け・クリックで画像を追加",w:"マトリクス幅",r:"縦比率",l:"明るさ",c:"コントラスト",sh:"シャープ",inv:"反転",al:"自動レベル",col:"カラープレビュー",fit:"上限に自動調整",st:"厳密カウント (Unicode ×2)",dt2:"ディザ",cp:"コピー",ok:"コピーしました",ph:"ここに結果が表示されます",p1:"写真",p2:"人物",p3:"ロゴ",er:"画像を読み込めませんでした"}};
+const SETS={braille:{b:1},ascii:{c:" .:-=+*#%@"},blocks:{c:" ░▒▓█"},stars:{c:" ·.+*✦★"},hearts:{c:" ·.:♡♥❤"},kata:{c:" ・ニミムマホ"},binary:{c:" 01"},custom:{}};
+const DT={atk:[1,0,.125,2,0,.125,-1,1,.125,0,1,.125,1,1,.125,0,2,.125],fs:[1,0,7/16,-1,1,3/16,0,1,5/16,1,1,1/16],off:[]};
+const PRE={photo:{l:1.05,c:1.25,sh:.5,al:1},portrait:{l:1.1,c:1.45,sh:.35,al:1},logo:{l:1,c:2.6,sh:1.2,al:0}};
+const IDS=["w","r","l","c","sh","inv","colr","auto","strict","al","sym","cu","pf","lim","dth"];
+const FONT='"Cascadia Mono",Consolas,monospace';
+let lang="en",src=null,out=null,raf=0,zauto=true,url=null;
+const W=document.createElement("canvas"),Wx=W.getContext("2d",{willReadFrequently:true}),C2=document.createElement("canvas"),C2x=C2.getContext("2d",{willReadFrequently:true}),M=document.createElement("canvas").getContext("2d");
+const store=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch{}};
+function tr(){$$("[data-i]").forEach(e=>e.textContent=T[lang][e.dataset.i]);$("#cp").textContent=T[lang].cp;$("#pre").dataset.ph=T[lang].ph;document.documentElement.lang=lang;$$("[data-l]").forEach(b=>b.classList.toggle("on",b.dataset.l==lang))}
+function theme(t){document.documentElement.dataset.t=t;$$(".sw").forEach(b=>b.classList.toggle("on",b.dataset.t==t));store("qt",t)}
+function save(){const o={};IDS.forEach(i=>{const e=$("#"+i);o[i]=e.type=="checkbox"?e.checked:e.value});store("qs",JSON.stringify(o))}
+function restore(){try{const o=JSON.parse(store("qs")||"{}");IDS.forEach(i=>{if(i in o){const e=$("#"+i);if(e.type=="checkbox")e.checked=!!o[i];else if(e.tagName!="SELECT"||[...e.options].some(x=>x.value==o[i]))e.value=o[i]}})}catch{}$("#cu").style.display=$("#sym").value=="custom"?"block":"none"}
+function vals(){["w","r","l","c","sh"].forEach(k=>$("#o"+k).textContent=$("#"+k).value)}
+const cnt=t=>{if(!$("#strict").checked)return t.length;let n=0;for(let i=0;i<t.length;i++)n+=t.charCodeAt(i)>127?2:1;return n};
+const E=c=>c=="<"?"&lt;":c=="&"?"&amp;":c;
+function setSrc(im){
+ if(!im.width||!im.height)throw 0;
+ const k=Math.min(1,1400/Math.max(im.width,im.height)),c=document.createElement("canvas"),x=c.getContext("2d");
+ c.width=Math.max(1,Math.round(im.width*k));c.height=Math.max(1,Math.round(im.height*k));
+ x.imageSmoothingQuality="high";x.fillStyle="#000";x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);src=c;
+}
+function build(w,p){
+ const set=SETS[p.sym],br=set.b,rows=Math.max(1,Math.round(w*src.height/src.width*p.r)),pw=br?w*2:w,ph=br?rows*4:rows,N=pw*ph;
+ W.width=pw;W.height=ph;Wx.imageSmoothingQuality="high";Wx.fillStyle="#000";Wx.fillRect(0,0,pw,ph);Wx.drawImage(src,0,0,pw,ph);
+ const d=Wx.getImageData(0,0,pw,ph).data,g=new Float32Array(N);
+ for(let i=0;i<N;i++)g[i]=(.299*d[i*4]+.587*d[i*4+1]+.114*d[i*4+2])/255;
+ if(p.al){const h=new Uint32Array(256);for(let i=0;i<N;i++)h[(g[i]*255)|0]++;let a=0,lo=0,hi=255;
+  for(let i=0;i<256;i++){a+=h[i];if(a>N*.01){lo=i;break}}a=0;for(let i=255;i>=0;i--){a+=h[i];if(a>N*.01){hi=i;break}}
+  if(hi-lo>8){const s=255/(hi-lo),o=lo/255;for(let i=0;i<N;i++)g[i]=(g[i]-o)*s}}
+ if(p.sh>0&&pw>2&&ph>2){const o=g.slice();for(let y=1;y<ph-1;y++)for(let x=1;x<pw-1;x++){const i=y*pw+x;g[i]=o[i]+p.sh*2*(o[i]-(o[i-1]+o[i+1]+o[i-pw]+o[i+pw]+o[i])/5)}}
+ for(let i=0;i<N;i++){const v=Math.min(1,Math.max(0,((g[i]-.5)*p.c+.5)*p.l));g[i]=p.inv?1-v:v}
+ const L=[];
+ if(br){
+  const D=DT[p.dth];
+  for(let y=0;y<ph;y++)for(let x=0;x<pw;x++){const i=y*pw+x,o=g[i],n=o>.5?1:0,e=o-n;g[i]=n;
+   if(e)for(let j=0;j<D.length;j+=3){const xx=x+D[j],yy=y+D[j+1];if(xx>=0&&xx<pw&&yy<ph)g[yy*pw+xx]+=e*D[j+2]}}
+  const B=[1,2,4,64,8,16,32,128];
+  for(let r=0;r<rows;r++){const a=[];for(let c=0;c<w;c++){let b=0;for(let dx=0;dx<2;dx++)for(let dy=0;dy<4;dy++)if(g[(r*4+dy)*pw+c*2+dx]>.5)b|=B[dx*4+dy];a.push(0x2800+b)}L.push(String.fromCharCode(...a))}
+ }else{
+  const c=[...(set.c||$("#cu").value||" .#")],n=c.length;
+  for(let r=0;r<rows;r++){let a="";for(let q=0;q<w;q++)a+=c[Math.min(n-1,(g[r*pw+q]*n)|0)];L.push(a)}
+ }
+ return{t:L.join("\n"),w,h:rows};
+}
+function colors(w,h){C2.width=w;C2.height=h;C2x.fillStyle="#000";C2x.fillRect(0,0,w,h);C2x.drawImage(src,0,0,w,h);return C2x.getImageData(0,0,w,h).data}
+function paint(o){
+ const P=$("#pre");
+ if(!$("#colr").checked){P.textContent=o.t;return}
+ const k=colors(o.w,o.h);let h="",n=0,pc="",run="";
+ for(const l of o.t.split("\n")){for(const ch of l){const j=n*4,c=`rgb(${(k[j]>>4)*17},${(k[j+1]>>4)*17},${(k[j+2]>>4)*17})`;
+  if(c!==pc){if(run)h+=`<i style="color:${pc}">${run}</i>`;pc=c;run=""}run+=E(ch);n++}run+="\n"}
+ P.innerHTML=h+(run?`<i style="color:${pc}">${run}</i>`:"");
+}
+function fit(){
+ if(!out)return;M.font="100px "+FONT;const lw=M.measureText(out.t.split("\n",1)[0]).width/100,P=$("#pre");
+ if(!lw)return;const fs=Math.round(Math.min(22,Math.max(3,(P.clientWidth-30)/lw))*2)/2;$("#z").value=fs;P.style.fontSize=fs+"px";
+}
+function show(anim){
+ if(!src)return;
+ try{
+  const p={r:+$("#r").value,l:+$("#l").value,c:+$("#c").value,sh:+$("#sh").value,inv:$("#inv").checked,al:$("#al").checked,sym:$("#sym").value,dth:$("#dth").value};
+  const w=Math.max(10,+$("#w").value||60),lim=+$("#lim").value||1e9;let o=build(w,p);
+  if($("#auto").checked&&cnt(o.t)>lim){let lo=6,hi=w,b=6;while(lo<=hi){const m=(lo+hi)>>1;if(cnt(build(m,p).t)<=lim){b=m;lo=m+1}else hi=m-1}o=build(b,p)}
+  out=o;paint(o);const n=cnt(o.t),P=$("#pre");
+  if(zauto)fit();else P.style.fontSize=$("#z").value+"px";
+  $("#cnt").textContent=`${n} / ${lim>1e8?"∞":lim}  ·  ${o.w}×${o.h}`;
+  $("#bar").style.width=Math.min(100,n/lim*100)+"%";$("#res").classList.toggle("over",n>lim);
+  if(anim)P.animate([{clipPath:"inset(0 0 100% 0)"},{clipPath:"inset(0)"}],{duration:650,easing:"ease-out"});
+ }catch(e){console.error(e);msg(T[lang].er)}
+}
+const go=a=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>show(a))};
+const msg=m=>{const t=$("#dt");t.removeAttribute("data-i");t.textContent=m};
+function load(f){
+ if(!f||!f.type.startsWith("image/"))return;if(f.size>5e7)return msg(T[lang].er);
+ const u=URL.createObjectURL(f),im=new Image();
+ im.onload=()=>{try{setSrc(im);if(url)URL.revokeObjectURL(url);url=u;$("#th").src=u;$("#drop").classList.add("has");msg(`${f.name} · ${im.width}×${im.height}`);show(1)}catch{msg(T[lang].er)}};
+ im.onerror=()=>{URL.revokeObjectURL(u);msg(T[lang].er)};im.src=u;
+}
+$$(".t").forEach(e=>e.addEventListener("input",()=>{
+ if(e.id=="pf"){const[l,s]=e.value.split("|");$("#lim").value=l;$("#strict").checked=s=="1"}
+ if(e.id=="sym")$("#cu").style.display=e.value=="custom"?"block":"none";
+ vals();save();go(0)}));
+$$("[data-p]").forEach(b=>b.onclick=()=>{const p=PRE[b.dataset.p];for(const k in p){const e=$("#"+k);if(e.type=="checkbox")e.checked=!!p[k];else e.value=p[k]}vals();save();go(1)});
+$("#z").oninput=e=>{zauto=false;$("#pre").style.fontSize=e.target.value+"px"};
+$("#zf").onclick=()=>{zauto=true;fit()};
+addEventListener("resize",()=>zauto&&fit());
+$("#go").onclick=()=>src?show(1):$("#f").click();
+$("#plus").onclick=$("#drop").onclick=()=>$("#f").click();
+$("#f").onchange=e=>{load(e.target.files[0]);e.target.value=""};
+const dr=$("#drop");
+["dragover","dragenter"].forEach(v=>addEventListener(v,e=>{e.preventDefault();dr.classList.add("ov")}));
+["dragleave","drop"].forEach(v=>addEventListener(v,()=>dr.classList.remove("ov")));
+addEventListener("drop",e=>{e.preventDefault();load(e.dataTransfer.files[0])});
+addEventListener("paste",e=>{const f=[...e.clipboardData.files][0];if(f)load(f)});
+addEventListener("pointermove",e=>{const s=document.documentElement.style;s.setProperty("--mx",e.clientX+"px");s.setProperty("--my",e.clientY+"px")});
+$$("[data-l]").forEach(b=>b.onclick=()=>{lang=b.dataset.l;store("ql",lang);tr()});
+$$(".sw").forEach(b=>b.onclick=()=>theme(b.dataset.t));
+$("#cp").onclick=async()=>{if(!out)return;try{await navigator.clipboard.writeText(out.t)}catch{const a=document.createElement("textarea");a.value=out.t;document.body.append(a);a.select();document.execCommand("copy");a.remove()}
+ const b=$("#cp");b.textContent=T[lang].ok;setTimeout(()=>b.textContent=T[lang].cp,1200)};
+const dl=(h,n)=>{const a=document.createElement("a");a.href=h;a.download=n;a.click()};
+$("#txt").onclick=()=>out&&dl(URL.createObjectURL(new Blob([out.t],{type:"text/plain"})),"qwizero.txt");
+$("#png").onclick=()=>{if(!out)return;const f=12,S=2,L=out.t.split("\n"),inv=$("#inv").checked,col=$("#colr").checked,k=col?colors(out.w,out.h):null,c=document.createElement("canvas"),x=c.getContext("2d"),F=f+"px "+FONT;
+ M.font=F;const cw=M.measureText(L[0]).width/out.w;c.width=(Math.ceil(cw*out.w)+40)*S;c.height=(L.length*f+40)*S;x.scale(S,S);
+ x.fillStyle=inv?"#fff":"#020611";x.fillRect(0,0,c.width,c.height);x.font=F;x.textBaseline="top";x.fillStyle=inv?"#000":"#fff";
+ let n=0;L.forEach((l,r)=>{for(const ch of l){if(k)x.fillStyle=`rgb(${k[n*4]},${k[n*4+1]},${k[n*4+2]})`;x.fillText(ch,20+(n%out.w)*cw,20+r*f);n++}});
+ dl(c.toDataURL("image/png"),"qwizero.png")};
+lang=store("ql")||"en";theme(store("qt")||"ice");restore();tr();vals();$("#cnt").textContent="0 / "+$("#lim").value;
+</script></body></html>
